@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,10 +35,7 @@ export default function LoginPage() {
         throw new Error(data.message || "Something went wrong");
       }
 
-      console.log("Login succesful! Token: ", data.token);
-      alert("Login Succesful!");
-
-      router.push("/dashboard");
+      login(data.token);
     } catch (err: any) {
       console.error("Login failed:", err);
       setError(err.message);

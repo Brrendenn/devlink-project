@@ -1,10 +1,13 @@
+"use client";
+
 import React from 'react'
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ModeToggle } from './DarkMode';
+import { useAuth } from '@/context/AuthContext';
 
 export const Navbar = () => {
-  const isLoggedIn = false;
+  const { isLoggedIn, logout } = useAuth();
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md w-full">
@@ -20,7 +23,7 @@ export const Navbar = () => {
                 <Link href="/dashboard">
                   <Button variant="ghost" className='font-bold text-lg cursor-pointer'>Dashboard</Button>
                 </Link>
-                <Button variant="ghost" className='font-bold text-lg cursor-pointer'>Logout</Button>
+                <Button variant="ghost" className='font-bold text-lg cursor-pointer' onClick={logout}>Logout</Button>
                 
               </>
             ) : (

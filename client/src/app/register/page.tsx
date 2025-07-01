@@ -62,7 +62,7 @@ export default function RegisterPage() {
       <div className="flex justify-center items-center pt-16">
         <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl dark:bg-gray-800">
           <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
-            Login to DevLink
+            Register to DevLink
           </h1>
           <form className="space-y-6" onSubmit={handleRegister}>
             {error && (
