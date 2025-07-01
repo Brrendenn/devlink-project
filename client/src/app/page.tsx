@@ -2,6 +2,7 @@
 
 import { CarouselSize } from "@/components/Carousel";
 import { AccordionDemo } from "@/components/FAQ"
+import { HowItWorks } from "@/components/HowItWorks";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion"; // <-- 1. Import from the correct library
 import Link from "next/link";
@@ -21,7 +22,7 @@ export default function HomePage() {
         bg-clip-text text-transparent 
         bg-gradient-to-r 
         dark:from-purple-600 dark:via-blue-500 dark:to-purple-600
-        from-purple-400 via-pink-400 to-rose-400"
+        from-purple-600 via-pink-400 to-violet-600"
       >
         Your Links, All in One Place.
       </h1>
@@ -37,6 +38,9 @@ export default function HomePage() {
       </div>
       <div className="mt-16 w-full max-w-4xl mx-auto">
         <CarouselSize />
+      </div>
+      <div className="mt-24 w-full max-w-5xl mx-auto">
+        <HowItWorks />
       </div>
       <div className="mt-24 w-full max-w-3xl mx-auto">
         <AccordionDemo />

@@ -7,9 +7,9 @@ export const Footer = () => {
     <footer className="bg-white dark:bg-slate-950 border-t border-gray-200 dark:border-slate-800">
       <div className="container mx-auto space-y-8 px-4 py-12 sm:px-6 lg:space-y-16 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Column 1: Brand and Socials */}
+
           <div>
-            <Link href="/" className="text-4xl font-bold text-purple-600">
+            <Link href="/" className="text-4xl font-bold text-purple-600 dark:text-blue-700">
               DevLink
             </Link>
             <p className="mt-4 max-w-xs text-sm text-gray-500 dark:text-gray-400">
@@ -53,7 +53,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 2: Link Groups */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-3">
             <div>
               <p className="font-medium text-gray-900 dark:text-white">
@@ -133,7 +132,6 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Copyright Notice */}
         <p className="text-xs text-gray-500 dark:text-gray-400">
           &copy; {new Date().getFullYear()} DevLink. All rights reserved.
         </p>
