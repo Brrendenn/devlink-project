@@ -4,6 +4,23 @@ import { AuthRequest } from "../middleware/authMiddleware";
 
 const prisma = new PrismaClient();
 
+export const getMyLinks = async(req: AuthRequest, res: Response) => {
+    const userId = req.user?.userId;
+
+    if(!userId){
+        return res.status(401).json({message: "Not authorized"});
+    }
+
+    try {
+        const links = await prisma.link.findMany({
+            where: { userId },
+        });
+        res.status(200).json(links);
+    } catch (error){
+        res.status(500).json({message: "Server error while fetching links", error})
+    }
+};
+
 export const getPublicProfile = async(req: AuthRequest, res: Response) => {
     try{
         const {username} = req.params;

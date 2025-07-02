@@ -1,8 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { useRouter } from "next/navigation";
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 interface User {
   userId: string;
@@ -10,66 +16,77 @@ interface User {
 }
 
 interface AuthContextType {
-    isLoggedIn: boolean;
-    token: string | null;
-    user: User | null;
-    isLoading: boolean;
-    login: (token: string) => void;
-    logout: () => void;
+  isLoggedIn: boolean;
+  token: string | null;
+  user: User | null;
+  isLoading: boolean;
+  login: (token: string) => void;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children } : { children: ReactNode }) => {
-    const [token, setToken] = useState<string | null>(null);
-    const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const router = useRouter();
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
-    useEffect(() => {
-        try {
-      const storedToken = localStorage.getItem('token');
-      if (storedToken) {
-        const decodedUser = jwtDecode<User>(storedToken);
-        setToken(storedToken);
-        setUser(decodedUser);
-      }
-    } catch (error) {
-      console.error("Failed to access localStorage:", error);
-      localStorage.removeItem('token');
-    } finally {
-      setIsLoading(false); 
-    }
-    }, []);
-
-    const login = (newToken: string) => {
-        const decodedUser = jwtDecode<User>(newToken);
-        setToken(newToken);
-        setUser(decodedUser);
-        localStorage.setItem('token', newToken);
-        router.push('/dashboard');
-    };
-
-    const logout = () => {
+  useEffect(() => {
+    const initializeAuth = () => {
+      try {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+          const decodedUser = jwtDecode<User>(storedToken);
+          setToken(storedToken);
+          setUser(decodedUser);
+        }
+      } catch (error) {
+        console.error("Invalid token found, clearing auth state.", error);
+        localStorage.removeItem('token');
         setToken(null);
         setUser(null);
-        localStorage.removeItem('token');
-        router.push('/login');
+      } finally {
+        setIsLoading(false);
+      }
     };
+    initializeAuth();
+  }, []);
 
-    const isLoggedIn = !!token;
+  const login = (newToken: string) => {
+    try {
+      const decodedUser = jwtDecode<User>(newToken);
+      setToken(newToken);
+      setUser(decodedUser);
+      localStorage.setItem('token', newToken);
+      router.push('/dashboard');
+    } catch (error) {
+      console.error("Failed to decode token on login:", error);
+    }
+  };
 
-    return (
-        <AuthContext.Provider value={{ isLoggedIn, token, user, isLoading, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
+  const isLoggedIn = !!token;
+
+  return (
+    <AuthContext.Provider
+      value={{ isLoggedIn, token, user, isLoading, login, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if(context === undefined){
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-}
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
