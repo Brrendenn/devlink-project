@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { euclid } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/Theme-provider";
 import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "DevLink",
@@ -35,6 +36,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <Toaster />
           </AuthProvider>
         </ThemeProvider>
       </body>
