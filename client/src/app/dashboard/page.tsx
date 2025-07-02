@@ -19,7 +19,7 @@ interface Link {
 }
 
 export default function DashboardPage() {
-  const { isLoggedIn, isLoading } = useAuth();
+  const { user, isLoggedIn, isLoading } = useAuth();
   const router = useRouter();
 
   const [links, setLinks] = useState<Link[]>([
@@ -48,11 +48,28 @@ export default function DashboardPage() {
   }
 
   const copyPublicLink = () => {
-    const publicUrl = 'https://devlink.pro/username';
-    navigator.clipboard.writeText(publicUrl);
-    toast("Copied to Clipboard!", {
+    if(!user) return;
+
+    const publicUrl = `${window.location.origin}/${user.username}`;
+
+    const textArea = document.createElement("textarea");
+    textArea.value = publicUrl;
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+      document.execCommand('copy');
+      toast("Copied to Clipboard!", {
         description: publicUrl,
-    });
+      });
+    } catch (err){
+      console.error("Failed to copy text: ", err);
+      toast("Copy Failed", {
+        description: "Could not copy the link to your clipboard.",
+      });
+    }
+
+    document.body.removeChild(textArea);
   }
 
   useEffect(() => {
@@ -83,7 +100,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <Card className="mb-6">
+      <Card className="mb-6 dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="text-lg">Your Public Link</CardTitle>
         </CardHeader>
@@ -104,7 +121,7 @@ export default function DashboardPage() {
       <div className="space-y-4">
         {links.length > 0 ? (
           links.map((link) => (
-            <Card key={link.id}>
+            <Card key={link.id} className="dark:bg-gray-900">
               <CardContent className="p-4 flex items-center gap-4">
                 <div className="flex-grow space-y-2">
                   <Input 
