@@ -8,6 +8,7 @@ import profileRoutes from './routes/profileRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const HOST = '0.0.0.0';
 
 const allowedOrigins = [
   'http://localhost:3000',
@@ -35,6 +36,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', profileRoutes)
 
-app.listen(PORT, () => {
-    console.log(`Server is running on https://localhost:${PORT}`);
+app.listen(Number(PORT), HOST, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
