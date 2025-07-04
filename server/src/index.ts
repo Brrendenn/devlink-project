@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5001;
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://192.168.100.96:3000' // Your specific IP from previous errors
+  'http://25.7.245.51:3000' // Your specific IP from previous errors
 ];
 
 const corsOptions = {
