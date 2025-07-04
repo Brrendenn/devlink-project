@@ -7,11 +7,18 @@ interface Link {
   title: string;
   url: string;
 }
+
 interface ProfileData {
   username: string;
   imageUrl: string | null;
   links: Link[];
   theme: string | null;
+}
+
+interface UserProfilePageProps {
+  params: {
+    username: string;
+  };
 }
 
 export const dynamic = "force-dynamic";
@@ -20,11 +27,7 @@ export async function generateStaticParams() {
   return [];
 }
 
-export default async function UserProfilePage({
-  params,
-}: {
-  params: { username: string };
-}) {
+export default async function UserProfilePage({ params }: UserProfilePageProps) {
   const { username } = await params;
 
   let data: ProfileData | null = null;
