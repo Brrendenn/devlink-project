@@ -11,11 +11,17 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion } from "motion/react";
-import { PlusCircle, Trash2, Loader2, Link as LinkIcon, Copy } from "lucide-react";
+import {
+  PlusCircle,
+  Trash2,
+  Loader2,
+  Link as LinkIcon,
+  Copy,
+} from "lucide-react";
 import { saveUserLinks } from "@/lib/api";
 import { LivePreview } from "@/components/LivePreview";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default function LinksEditorPage() {
   const { user, token } = useAuth();
@@ -61,19 +67,20 @@ export default function LinksEditorPage() {
   };
 
   const copyPublicLink = () => {
-    if (!user) return;
-    const publicUrl = `${window.location.origin}/${user.username}`;
-    const textArea = document.createElement("textarea");
-    textArea.value = publicUrl;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      toast("Copied to Clipboard!", {description: publicUrl });
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
+    if (typeof window !== "undefined" && user) {
+      const publicUrl = `${window.location.origin}/${user.username}`;
+      const textArea = document.createElement("textarea");
+      textArea.value = publicUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        toast("Copied to Clipboard!", {description: publicUrl });
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+      }
+      document.body.removeChild(textArea);
     }
-    document.body.removeChild(textArea);
   };
 
   return (
@@ -93,17 +100,23 @@ export default function LinksEditorPage() {
           </div>
 
           <Card className="mb-6">
-          <CardHeader><CardTitle className="text-lg">Your Public Link</CardTitle></CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-md">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <LinkIcon className="h-4 w-4" />
-                <span className="font-mono text-sm">{window.location.origin}/{user?.username}</span>
+            <CardHeader>
+              <CardTitle className="text-lg">Your Public Link</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-md">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <LinkIcon className="h-4 w-4" />
+                  <span className="font-mono text-sm">
+                    {window.location.origin}/{user?.username}
+                  </span>
+                </div>
+                <Button variant="ghost" size="icon" onClick={copyPublicLink}>
+                  <Copy className="h-4 w-4" />
+                </Button>
               </div>
-              <Button variant="ghost" size="icon" onClick={copyPublicLink}><Copy className="h-4 w-4" /></Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold">Customize your links</h2>
