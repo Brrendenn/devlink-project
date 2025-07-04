@@ -13,9 +13,9 @@ const HOST = '0.0.0.0';
 const allowedOrigins = [
   'http://localhost:3000',
   'http://192.168.100.96:3000',
-  'https://devlink-project-git-main-brandons-projects-00163be8.vercel.app',
-  'https://devlink-project.vercel.app',
-  'ample-eagerness-production.up.railway.app',
+  'https://vercel.com/brandons-projects-00163be8/devlink-project-front/6rYhZ5a9yWNDUgP6y6XVu39Gm8Rg',
+  'devlink-project-front.vercel.app',
+  'devlink-project.vercel.app',
 ];
 
 const corsOptions = {
