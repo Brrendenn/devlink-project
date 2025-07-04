@@ -107,9 +107,7 @@ export default function LinksEditorPage() {
               <div className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-md">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <LinkIcon className="h-4 w-4" />
-                  <span className="font-mono text-sm">
-                    {window.location.origin}/{user?.username}
-                  </span>
+                  <span className="font-mono text-sm">{typeof window !== 'undefined' && user ? `${window.location.origin}/${user.username}` : ''}</span>
                 </div>
                 <Button variant="ghost" size="icon" onClick={copyPublicLink}>
                   <Copy className="h-4 w-4" />
