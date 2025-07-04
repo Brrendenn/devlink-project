@@ -23,6 +23,7 @@ export default function ProfileEditorPage() {
       await saveProfileDetails(profile, token);
       toast("Profile Saved!", {description: "Your profile has been updated." });
     } catch (e) {
+      console.error('Failed to save profile.', e);
       toast("Save failed!", {description: "Could not save your profile."});
     } finally {
       setIsSaving(false);

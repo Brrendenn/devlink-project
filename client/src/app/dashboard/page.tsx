@@ -51,6 +51,7 @@ export default function LinksEditorPage() {
         description: "Your links have been updated successfully.",
       });
     } catch (error) {
+      console.error("Failed to save links:", error);
       toast("Save Failed", { description: "Could not save your links." });
     } finally {
       setIsSaving(false);
