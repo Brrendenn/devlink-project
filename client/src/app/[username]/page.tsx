@@ -16,12 +16,14 @@ interface ProfileData {
 }
 
 type UserProfilePageProps = {
-  params: { username: string };
+  params: Promise<{ username: string }>;
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function UserProfilePage({ params }: UserProfilePageProps) {
-  const { username } = params;
+  const { username } = await params;
 
   let data: ProfileData | null = null;
 
