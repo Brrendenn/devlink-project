@@ -17,7 +17,7 @@ interface ProfileData {
 
 type UserProfilePageProps = {
   params: Promise<{ username: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export const dynamic = 'force-dynamic';
