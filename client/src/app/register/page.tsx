@@ -30,6 +30,7 @@ export default function RegisterPage() {
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
         {
           method: "POST",
+          mode: "cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, email, password }),
         }
