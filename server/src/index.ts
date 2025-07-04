@@ -13,10 +13,9 @@ const HOST = '0.0.0.0';
 const allowedOrigins = [
   'http://localhost:3000',
   'http://192.168.100.96:3000',
-  'https://vercel.com/brandons-projects-00163be8/devlink-project-front/6rYhZ5a9yWNDUgP6y6XVu39Gm8Rg',
-  'devlink-project-front.vercel.app',
-  'devlink-project.vercel.app',
+  'https://devlink-project-front.vercel.app',
 ];
+
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
