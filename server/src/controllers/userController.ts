@@ -36,6 +36,8 @@ export const getPublicProfile = async(req: AuthRequest, res: Response) => {
         res.status(200).json({
             username: user.username,
             links: user.links,
+            imageUrl: user.imageUrl,
+            theme: user.theme,
         });
     } catch (error){
         res.status(500).json({message: "Server error", error});
