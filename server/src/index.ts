@@ -15,7 +15,7 @@ const allowedOrigins = [
   'http://192.168.100.96:3000',
   'https://devlink-project-git-main-brandons-projects-00163be8.vercel.app',
   'https://devlink-project.vercel.app',
-  'https://devlink-project-production.up.railway.app',
+  'ample-eagerness-production.up.railway.app',
 ];
 
 const corsOptions = {
