@@ -11,6 +11,8 @@ import { Loader2, Palette, Image as ImageIcon } from "lucide-react";
 import { saveProfileDetails } from "@/lib/api";
 import { LivePreview } from "@/components/LivePreview";
 
+export const dynamic = 'force-dynamic';
+
 export default function ProfileEditorPage() {
   const { user, token } = useAuth();
   const { profile, setProfile, links, isLoading } = useDashboard();

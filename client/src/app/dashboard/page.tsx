@@ -15,6 +15,8 @@ import { PlusCircle, Trash2, Loader2, Link as LinkIcon, Copy } from "lucide-reac
 import { saveUserLinks } from "@/lib/api";
 import { LivePreview } from "@/components/LivePreview";
 
+export const dynamic = 'force-dynamic';
+
 export default function LinksEditorPage() {
   const { user, token } = useAuth();
   const { links, setLinks, profile, isLoading } = useDashboard();
