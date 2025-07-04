@@ -152,7 +152,7 @@ export default function LinksEditorPage() {
                 <PlusCircle className="h-4 w-4" />
                 <AlertTitle>No links yet!</AlertTitle>
                 <AlertDescription>
-                  Click "Add New Link" to get started.
+                  Click &quot;Add New Link&quot; to get started.
                 </AlertDescription>
               </Alert>
             )}

@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Github, Dribbble, Twitter, Instagram, Linkedin, icons, Icon } from "lucide-react"
+import { Github, Dribbble, Twitter, Instagram, Linkedin} from "lucide-react"
 
 const features = [
   {

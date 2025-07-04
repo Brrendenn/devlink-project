@@ -45,10 +45,13 @@ export default function RegisterPage() {
 
       alert("Registration Succesful! Please log in.");
       router.push("/login");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+    } catch (err) {
+      // Let TypeScript infer it as 'unknown'
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
     }
   };
 

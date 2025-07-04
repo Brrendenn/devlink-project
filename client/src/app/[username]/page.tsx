@@ -78,7 +78,7 @@ export default async function UserProfilePage({
             ))
           ) : (
             <p className="text-center opacity-70">
-              This user hasn't added any links yet.
+              This user hasn&apos;t added any links yet.
             </p>
           )}
         </div>

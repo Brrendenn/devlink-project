@@ -27,7 +27,7 @@ export default function HomePage() {
         Your Links, All in One Place.
       </h1>
       <p className="mt-4 text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300 font-medium">
-        DevLink is the only link you'll ever need. Create a personalized and
+        DevLink is the only link you&apos;ll ever need. Create a personalized and
         easily-customizable page to house all the important links you want
         to share with your audience.
       </p>
