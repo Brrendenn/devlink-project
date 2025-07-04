@@ -15,20 +15,13 @@ interface ProfileData {
   theme: string | null;
 }
 
-interface UserProfilePageProps {
-  params: {
-    username: string;
-  };
-}
-
-export const dynamic = "force-dynamic";
-
-export async function generateStaticParams() {
-  return [];
-}
+type UserProfilePageProps = {
+  params: { username: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export default async function UserProfilePage({ params }: UserProfilePageProps) {
-  const { username } = await params;
+  const { username } = params;
 
   let data: ProfileData | null = null;
 
