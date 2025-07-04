@@ -1,10 +1,8 @@
-// client/src/app/[username]/page.tsx
-
 import { notFound } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LinkCard } from '@/components/LinkCard';
 
-// Define the shape of the data we expect from the API
+
 interface Link {
   title: string;
   url: string;
@@ -20,13 +18,14 @@ export async function generateStaticParams() {
   return [];
 }
 
-// This is the main page component.
+
 export default async function UserProfilePage({ params }: { params: { username: string } }) {
+  const { username } = await params;
   
   let data: ProfileData | null = null;
 
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/profile/${params.username}`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/profile/${username}`;
     const res = await fetch(apiUrl, { cache: 'no-store' });
 
     if (res.ok) {
@@ -42,7 +41,6 @@ export default async function UserProfilePage({ params }: { params: { username: 
 
   return (
     <div className="w-full max-w-md mx-auto flex flex-col items-center gap-6 pt-8 animate-fade-in">
-      {/* Profile Header */}
       <div className="flex flex-col items-center gap-4">
         <Avatar className="w-24 h-24 border-4 border-white dark:border-slate-800 shadow-lg">
           <AvatarImage src={`https://avatar.vercel.sh/${data.username}.png`} />
@@ -52,8 +50,7 @@ export default async function UserProfilePage({ params }: { params: { username: 
           @{data.username}
         </h1>
       </div>
-
-      {/* Links List */}
+      
       <div className="w-full space-y-4">
         {data.links.length > 0 ? (
           data.links.map((link, index) => (

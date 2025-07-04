@@ -18,6 +18,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { getUserLinks, saveUserLinks } from "@/lib/api";
+import { LivePreview } from "@/components/LivePreview";
 
 interface Link {
   id: string;
@@ -136,96 +137,95 @@ export default function DashboardPage() {
 
   if (isLoggedIn) {
     return (
-      <div className="w-full max-w-4xl text-left animate-fade-in">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              onClick={handleAddLink}
-              disabled={isSaving}
-            >
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Add New Link
-            </Button>
-            <Button onClick={handleSaveChanges} disabled={isSaving}>
-              {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {isSaving ? "Saving..." : "Save Changes"}
-            </Button>
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={handleAddLink}
+                disabled={isSaving}
+              >
+                <PlusCircle className="mr-2 h-4 w-4" /> Add New Link
+              </Button>
+              <Button onClick={handleSaveChanges} disabled={isSaving}>
+                {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSaving ? "Saving..." : "Save Changes"}
+              </Button>
+            </div>
+          </div>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Your Public Link</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-md">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <LinkIcon className="h-4 w-4" />
+                  <span className="font-mono text-sm">
+                    {window.location.origin}/{user?.username}
+                  </span>
+                </div>
+                <Button variant="ghost" size="icon" onClick={copyPublicLink}>
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="space-y-4">
+            {isFetching ? (
+              <div className="flex items-center justify-center p-8">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              </div>
+            ) : links.length > 0 ? (
+              links.map((link) => (
+                <Card key={link.id}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="flex-grow space-y-2">
+                      <Input
+                        placeholder="Link Title"
+                        value={link.title}
+                        onChange={(e) =>
+                          handleUpdateLink(link.id, "title", e.target.value)
+                        }
+                      />
+                      <Input
+                        placeholder="URL (e.g., https://...)"
+                        value={link.url}
+                        onChange={(e) =>
+                          handleUpdateLink(link.id, "url", e.target.value)
+                        }
+                      />
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDeleteLink(link.id)}
+                    >
+                      <Trash2 className="h-4 w-4 text-red-500" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <Alert>
+                <PlusCircle className="h-4 w-4" />
+                <AlertTitle>No links yet!</AlertTitle>
+                <AlertDescription>
+                  Click "Add New Link" to get started.
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
         </div>
 
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="text-lg">Your Public Link</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-md">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <LinkIcon className="h-4 w-4" />
-                <span className="font-mono text-sm">
-                  {window.location.origin}/{user?.username}
-                </span>
-              </div>
-              <Button variant="ghost" size="icon" onClick={copyPublicLink}>
-                <Copy className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-4">
-          {isFetching ? (
-            <div className="flex items-center justify-center p-8">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-            </div>
-          ) : links.length > 0 ? (
-            links.map((link) => (
-              <Card key={link.id}>
-                <CardContent className="p-4 flex items-center gap-4">
-                  <div className="flex-grow space-y-2">
-                    <Input
-                      placeholder="Link Title (e.g., My Portfolio)"
-                      value={link.title}
-                      onChange={(e) =>
-                        handleUpdateLink(link.id, "title", e.target.value)
-                      }
-                    />
-                    <Input
-                      placeholder="URL (e.g., https://...)"
-                      value={link.url}
-                      onChange={(e) =>
-                        handleUpdateLink(link.id, "url", e.target.value)
-                      }
-                    />
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleDeleteLink(link.id)}
-                  >
-                    <Trash2 className="h-4 w-4 text-red-500" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))
-          ) : (
-            <Alert>
-              <PlusCircle className="h-4 w-4" />
-              <AlertTitle>No links yet!</AlertTitle>
-              <AlertDescription>
-                Click "Add New Link" to get started.
-              </AlertDescription>
-            </Alert>
-          )}
+        <div className="hidden lg:block">
+          <LivePreview user={user} links={links} />
         </div>
       </div>
     );
   }
-
-  return (
-    <div className="text-center">
-      <p>Redirecting to login...</p>
-    </div>
-  );
 }

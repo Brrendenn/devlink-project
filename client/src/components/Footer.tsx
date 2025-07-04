@@ -5,7 +5,7 @@ import { Github, Instagram, Twitter } from "lucide-react";
 export const Footer = () => {
   return (
     <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-slate-800">
-      <div className="container mx-auto space-y-8 px-4 py-12 sm:px-6 lg:space-y-16 lg:px-8">
+      <div className="container mx-auto space-y-8 px-4 py-6 sm:px-6 lg:space-y-8 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
           <div>
