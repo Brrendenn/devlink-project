@@ -1,6 +1,12 @@
+<div align="center" id="top">
+
 # DevLink Project
 
 Empowering Seamless Connections for a Brighter Digital Future.
+
+</div>
+
+<div align="center">
 
 ![Last Commit](https://img.shields.io/github/last-commit/Brrendenn/devlink-project?style=for-the-badge)
 ![Code Size](https://img.shields.io/github/languages/code-size/Brrendenn/devlink-project?style=for-the-badge)
@@ -18,6 +24,8 @@ Empowering Seamless Connections for a Brighter Digital Future.
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Railway](https://img.shields.io/badge/Railway-121012?style=for-the-badge&logo=railway&logoColor=white)
+
+</div>
 
 ---
 
