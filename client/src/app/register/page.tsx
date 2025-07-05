@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        `/api/auth/register`,
         {
           method: "POST",
           mode: "cors",
@@ -47,7 +47,6 @@ export default function RegisterPage() {
       alert("Registration Succesful! Please log in.");
       router.push("/login");
     } catch (err) {
-      // Let TypeScript infer it as 'unknown'
       if (err instanceof Error) {
         setError(err.message);
       } else {

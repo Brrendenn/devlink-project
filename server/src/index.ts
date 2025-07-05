@@ -1,3 +1,5 @@
+// server/src/index.ts
+
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -7,21 +9,19 @@ import userRoutes from './routes/userRoutes';
 import profileRoutes from './routes/profileRoutes';
 
 const app = express();
-const PORT = process.env.PORT || 5001;
-const HOST = '0.0.0.0';
 
+// This CORS configuration is still good practice
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://devlink-project-front-gsdfns4g7-brandons-projects-00163be8.vercel.app', // ← this must be added
+  'https://devlink-project-front-gsdfns4g7-brandons-projects-00163be8.vercel.app',
+  // On Vercel, this will be replaced by your single production URL
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 ];
-
-
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // In a serverless environment, the origin might be the same, but it's good to keep this
+    if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
       const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
@@ -68,11 +68,5 @@ app.use('*', (req, res) => {
   });
 });
 
-app.listen(Number(PORT), HOST, () => {
-  console.log(`Server is listening on port ${PORT}`);
-  console.log(`Available routes:`);
-  console.log(`- GET /health`);
-  console.log(`- GET /test`);
-  console.log(`- POST /api/auth/register`);
-  console.log(`- POST /api/auth/login`);
-});
+// EXPORT THE APP
+export default app;

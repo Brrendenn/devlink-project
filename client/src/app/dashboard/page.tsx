@@ -1,5 +1,3 @@
-// 1. Replace the content of: client/src/app/dashboard/page.tsx (Links Page)
-
 "use client";
 
 import { useState } from "react";
