@@ -1,3 +1,5 @@
+// api/src/index.ts
+
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -9,31 +11,25 @@ import profileRoutes from './routes/profileRoutes';
 const app = express();
 const HOST = '0.0.0.0';
 
+// We define the allowed origins based on your environment variables
 const allowedOrigins = [
-  'http://localhost:3000',
-  process.env.FRONTEND_URL || '', 
+  'http://localhost:3000', // For local development
+  process.env.FRONTEND_URL,  // For your live Vercel site
 ];
 
 const corsOptions = {
-  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    } else {
-      const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
-      console.log(msg);
-      return callback(new Error(msg), false);
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: allowedOrigins,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-// THIS IS THE NEW LINE TO ADD
-// It explicitly handles the browser's preflight 'OPTIONS' requests
-app.options('*', cors(corsOptions));
-
+// --- This is the key change ---
+// Use CORS as the VERY FIRST middleware. This will ensure it handles
+// the preflight OPTIONS request for all routes.
 app.use(cors(corsOptions));
+
+// Now, use the other middleware
 app.use(express.json());
 
 // Add debug logging
@@ -60,12 +56,15 @@ app.use('/api', profileRoutes);
 // Catch-all route for debugging
 app.use('*', (req, res) => {
   console.log(`Route not found: ${req.method} ${req.originalUrl}`);
-  res.status(404).json({ 
-    message: 'Route not found', 
+  res.status(404).json({
+    message: 'Route not found',
     method: req.method,
-    path: req.originalUrl 
+    path: req.originalUrl
   });
 });
 
-// EXPORT THE APP
-export default app;
+const PORT = process.env.PORT || 5001;
+
+app.listen(Number(PORT), HOST, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
