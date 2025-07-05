@@ -1,5 +1,3 @@
-// api/src/index.ts
-
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -38,4 +36,36 @@ app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// ... THE REST OF YOUR FILE ...
+// Add debug logging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
+  next();
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: 'Server is running' });
+});
+
+// Test endpoint to verify server is working
+app.get('/test', (req, res) => {
+  res.status(200).json({ message: 'Test endpoint working' });
+});
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api', profileRoutes);
+
+// Catch-all route for debugging
+app.use('*', (req, res) => {
+  console.log(`Route not found: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ 
+    message: 'Route not found', 
+    method: req.method,
+    path: req.originalUrl 
+  });
+});
+
+// EXPORT THE APP
+export default app;
