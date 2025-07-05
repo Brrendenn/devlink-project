@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        `natural-elegance-production-ecbf.up.railway.app/api/auth/register`,
         {
           method: "POST",
           mode: "cors",
