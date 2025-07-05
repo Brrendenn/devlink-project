@@ -28,7 +28,7 @@ export default async function UserProfilePage({ params }: UserProfilePageProps) 
   let data: ProfileData | null = null;
 
   try {
-    const apiUrl = `/api/profile/${username}`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/profile/${username}`;
     const res = await fetch(apiUrl, { cache: "no-store" });
 
     if (res.ok) {
