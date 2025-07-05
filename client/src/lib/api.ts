@@ -9,10 +9,10 @@ interface ProfileDetails {
   theme?: string;
 }
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const getUserLinks = async (token: string): Promise<Link[]> => {
-  const response = await fetch(`natural-elegance-production-ecbf.up.railway.app/api/me/links`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me/links`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const saveUserLinks = async (
   links: Omit<Link, "id">[],
   token: string
 ) => {
-  const response = await fetch(`natural-elegance-production-ecbf.up.railway.app/api/me/links`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me/links`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const saveUserLinks = async (
 export const getProfileDetails = async (
   token: string
 ): Promise<ProfileDetails> => {
-  const response = await fetch(`natural-elegance-production-ecbf.up.railway.app/api/me/profile`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/me/profile`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const saveProfileDetails = async (
   details: ProfileDetails,
   token: string
 ) => {
-  const response = await fetch(`natural-elegance-production-ecbf.up.railway.app/api/me/profile`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me/profile`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
