@@ -9,18 +9,17 @@ import profileRoutes from './routes/profileRoutes';
 const app = express();
 const HOST = '0.0.0.0';
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  process.env.FRONTEND_URL
-].filter(Boolean) as string[]; 
-
 const corsOptions = {
-  origin: allowedOrigins,
-  credentials: true
+  origin: [
+    'http://localhost:3000',
+    new RegExp('^https://devlink-project.*\\.vercel\\.app$')
+  ],
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json())
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
   next();
