@@ -11,18 +11,14 @@
       }
     },
     {
-      "src": "client/next.config.ts",
+      "src": "client/package.json",
       "use": "@vercel/next"
     }
   ],
   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "/api/(.*)",
       "destination": "/server/src/index.ts"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/client/:path*"
     }
   ]
 }
