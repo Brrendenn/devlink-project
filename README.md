@@ -7,11 +7,6 @@ Empowering Seamless Connections for a Brighter Digital Future.
 </div>
 
 <div align="center">
-
-![Last Commit](https://img.shields.io/github/last-commit/Brrendenn/devlink-project?style=for-the-badge)
-![Code Size](https://img.shields.io/github/languages/code-size/Brrendenn/devlink-project?style=for-the-badge)
-![Languages](https://img.shields.io/github/languages/count/Brrendenn/devlink-project?style=for-the-badge)
-
 **Built with the tools and technologies:**
 
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=white)
